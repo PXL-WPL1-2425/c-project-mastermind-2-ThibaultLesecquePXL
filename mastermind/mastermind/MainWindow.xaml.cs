@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace mastermind
 {
@@ -33,10 +34,8 @@ namespace mastermind
         public MainWindow()
         {
             InitializeComponent();
-            PickColors();
             ComboBoxItemsInit();
-            UpdateAttempts();
-            StartCountdown();
+            NewGame();
         }
 
         private void PickColors()
@@ -124,7 +123,8 @@ namespace mastermind
 
             if (attempts >= 10)
             {
-                isPlaying = false ;
+                isPlaying = false;
+                EndGame(false);
             }
         }
 
@@ -190,6 +190,49 @@ namespace mastermind
             timer.Stop();
             UpdateAttempts();
             StartCountdown();
+        }
+
+        private void NewGame()
+        {
+            attempts = 0;
+            isPlaying = true;
+
+            PickColors();
+            UpdateAttempts();
+            StartCountdown();
+
+            score = 100;
+        }
+
+        private void EndGame(bool hasWon)
+        {
+            isPlaying = false;
+            timer.Stop();
+
+            if (hasWon)
+            {
+                MessageBoxResult Result = MessageBox.Show($"Code is gekraakt in {attempts} pogingen. Wil je nog eens?", "WINNER", MessageBoxButton.YesNo);
+                if (Result == MessageBoxResult.Yes)
+                {
+                    NewGame();
+                }
+                else if (Result == MessageBoxResult.No)
+                {
+                    this.Close();
+                }
+            }
+            else if (!hasWon)
+            {
+                MessageBoxResult Result = MessageBox.Show($"You failed! De correcte code was {colorSelectionString[colorsRandom[0]]}, {colorSelectionString[colorsRandom[1]]}, {colorSelectionString[colorsRandom[2]]}, {colorSelectionString[colorsRandom[3]]}. Nog eens proberen?", "FAILED", MessageBoxButton.YesNo);
+                if (Result == MessageBoxResult.Yes)
+                {
+                    NewGame();
+                }
+                else if (Result == MessageBoxResult.No)
+                {
+                    this.Close();
+                }
+            }
         }
     }
 }
