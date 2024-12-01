@@ -211,7 +211,7 @@ namespace mastermind
 
             if (hasWon)
             {
-                MessageBoxResult Result = MessageBox.Show($"Code is gekraakt in {attempts} pogingen. Wil je nog eens?", "WINNER", MessageBoxButton.YesNo);
+                MessageBoxResult Result = MessageBox.Show($"Code is gekraakt in {attempts} pogingen. Wil je nog eens?", "WINNER", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (Result == MessageBoxResult.Yes)
                 {
                     NewGame();
@@ -223,7 +223,7 @@ namespace mastermind
             }
             else if (!hasWon)
             {
-                MessageBoxResult Result = MessageBox.Show($"You failed! De correcte code was {colorSelectionString[colorsRandom[0]]}, {colorSelectionString[colorsRandom[1]]}, {colorSelectionString[colorsRandom[2]]}, {colorSelectionString[colorsRandom[3]]}. Nog eens proberen?", "FAILED", MessageBoxButton.YesNo);
+                MessageBoxResult Result = MessageBox.Show($"You failed! De correcte code was {colorSelectionString[colorsRandom[0]]}, {colorSelectionString[colorsRandom[1]]}, {colorSelectionString[colorsRandom[2]]}, {colorSelectionString[colorsRandom[3]]}. Nog eens proberen?", "FAILED", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (Result == MessageBoxResult.Yes)
                 {
                     NewGame();
@@ -232,6 +232,16 @@ namespace mastermind
                 {
                     this.Close();
                 }
+            }
+        }
+
+        private void Mastermind_Close(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var result = MessageBox.Show("Wilt u het spel vroegtijdig beëindigen?", $"Poging {attempts}/10", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.No)
+            {
+                e.Cancel = true;
             }
         }
     }

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:mastermind"
         mc:Ignorable="d"
-        Title="Mastermind" Height="450" Width="800" KeyDown="mastermind_KeyDown">
+        Title="Mastermind" Height="450" Width="800" KeyDown="mastermind_KeyDown"
+        Closing="Mastermind_Close">
     <Grid>
         <ComboBox Name="color1ComboBox" HorizontalAlignment="Left" Margin="50,231,0,0" VerticalAlignment="Top" Width="100" SelectionChanged="ComboBox_SelectionChanged"/>
         <ComboBox Name="color2ComboBox" HorizontalAlignment="Left" Margin="250,231,0,0" VerticalAlignment="Top" Width="100" SelectionChanged="ComboBox_SelectionChanged"/>
