@@ -24,6 +24,7 @@ namespace mastermind
         int[] colorsRandom = new int[4];
 
         int attempts = 0;
+        int score = 100;
         bool isPlaying = true;
 
         DispatcherTimer timer = new DispatcherTimer();
@@ -106,7 +107,14 @@ namespace mastermind
             {
                 elipse.Stroke = Brushes.Wheat;
                 elipse.StrokeThickness = 5;
+                score -= 1;
             }
+            else
+            {
+                score -= 2;
+            }
+
+            scoreLabel.Content = $"Current score: {score}";
         }
 
         private void UpdateAttempts()
